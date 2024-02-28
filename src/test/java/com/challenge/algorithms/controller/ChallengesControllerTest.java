@@ -1,6 +1,6 @@
 package com.challenge.algorithms.controller;
 
-import com.challenge.algorithms.model.RequestStringSort;
+import com.challenge.algorithms.model.RequestString;
 import com.challenge.algorithms.model.ResponseAlgorithms;
 import com.challenge.algorithms.service.IChallenges;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,9 +37,9 @@ class ChallengesControllerTest {
     }
     @Test
     void alphanumericStringSort() throws Exception {
-        RequestStringSort requestMock = new RequestStringSort();
+        RequestString requestMock = new RequestString();
 
-        requestMock.setAlphanumericString("abcd4");
+        requestMock.setInputString("abcd4");
         Mockito.when(challenges.stringOrderChallenge(requestMock)).thenReturn(new ResponseAlgorithms());
         ResponseEntity<ResponseAlgorithms> responseEntity = new ResponseEntity<>(new ResponseAlgorithms(),HttpStatus.OK);
         assertNotNull(challengesController.alphanumericStringSort(requestMock));

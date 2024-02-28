@@ -1,6 +1,6 @@
 package com.challenge.algorithms.service.impl;
 
-import com.challenge.algorithms.model.RequestStringSort;
+import com.challenge.algorithms.model.RequestString;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,8 +16,8 @@ class ChallengesTest {
 
     @Test
     void stringOrderChallenge() {
-        RequestStringSort requestStringSort = new RequestStringSort();
-        requestStringSort.setAlphanumericString("vrlfaaA?4320%#");
-        assertNotNull(challenges.stringOrderChallenge(requestStringSort));
+        RequestString requestString = new RequestString();
+        requestString.setInputString("vrlfaaA?4320%#");
+        assertNotNull(challenges.stringOrderChallenge(requestString));
     }
 }
