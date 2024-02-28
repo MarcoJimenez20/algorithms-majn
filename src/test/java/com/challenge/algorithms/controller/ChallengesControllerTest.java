@@ -36,12 +36,19 @@ class ChallengesControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(challengesController).build();
     }
     @Test
-    void alphanumericStringSort() throws Exception {
+    void alphanumericStringSortTest() throws Exception {
         RequestString requestMock = new RequestString();
 
         requestMock.setInputString("abcd4");
         Mockito.when(challenges.stringOrderChallenge(requestMock)).thenReturn(new ResponseAlgorithms());
         ResponseEntity<ResponseAlgorithms> responseEntity = new ResponseEntity<>(new ResponseAlgorithms(),HttpStatus.OK);
         assertNotNull(challengesController.alphanumericStringSort(requestMock));
+    }
+    @Test
+    void balancedParenthesesTest(){
+        RequestString requestMock = new RequestString();
+        requestMock.setInputString("a(");
+        Mockito.when(challenges.balancedParentheses(requestMock)).thenReturn(new ResponseAlgorithms());
+        assertNotNull(challengesController.balancedParentheses(requestMock));
     }
 }

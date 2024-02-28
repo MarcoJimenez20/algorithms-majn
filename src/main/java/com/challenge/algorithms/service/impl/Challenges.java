@@ -77,8 +77,7 @@ public class Challenges implements IChallenges{
     public Boolean balancedString(RequestString optionalInput){
         int bandera = 0;
         if (Objects.isNull(optionalInput.getInputString())
-                || optionalInput.getInputString().trim().isEmpty()
-                || !optionalInput.getInputString().contains("()")) {
+                || optionalInput.getInputString().trim().isEmpty()) {
             return false;
         }
 
