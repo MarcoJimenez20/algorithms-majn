@@ -1,6 +1,6 @@
 package com.challenge.algorithms.controller;
 
-import com.challenge.algorithms.model.RequestString;
+import com.challenge.algorithms.model.RequestStringSort;
 import com.challenge.algorithms.service.IChallenges;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,32 +23,13 @@ public class ChallengesController {
      * - Odd numbers go before Even numbers
      * - Any character that is not a letter or number should go after the letters and numbers
      * i.e.: abeCD4®
-     * @param requestString
+     * @param requestStringSort
      * @return
      */
     @PostMapping("/string-order")
-    public ResponseEntity<?> alphanumericStringSort(@RequestBody RequestString requestString){
-        log.info("log: {}", requestString.getInputString());
-        return ResponseEntity.ok(challenges.stringOrderChallenge(requestString));
+    public ResponseEntity<?> alphanumericStringSort(@RequestBody RequestStringSort requestStringSort){
+        log.info("log: {}",requestStringSort.getAlphanumericString());
+        return ResponseEntity.ok(challenges.stringOrderChallenge(requestStringSort));
     }
 
-    /**
-     * Challenge name: balanced-parentheses
-     * Description:
-     * Given a string that may contain parentheses validate if it has all being and ending parentheses
-     * Examples:
-     *  input:   (hello, world)
-     *  output: valid
-     *  input:   Random text (as this) is ok().
-     *  output: valid
-     *  input:   )(
-     *  output: invalid
-     * @param requestString
-     * @return
-     */
-    @RequestMapping("/balanced-parentheses")
-    public ResponseEntity<?> balancedParentheses(@RequestBody RequestString requestString){
-        log.info("Input String: {}", requestString.getInputString());
-        return ResponseEntity.ok(challenges.balancedParentheses(requestString));
-    }
 }
