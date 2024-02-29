@@ -69,7 +69,7 @@ class ChallengesTest {
     @Test
     void ticTacToePlayerAWinsTest(){
         RequestTicTacToe requestMock = new RequestTicTacToe();
-        int[][] moves = {{0,0},{2,0},{1,2},{2,1},{2,2}};
+        int[][] moves = {{0,0},{2,0},{1,1},{2,1},{2,2}};
         requestMock.setMoves(moves);
         assertNotNull(challenges.ticTacToeChallenge(requestMock));
     }
