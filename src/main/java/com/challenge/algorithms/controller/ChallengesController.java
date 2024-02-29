@@ -1,6 +1,7 @@
 package com.challenge.algorithms.controller;
 
 import com.challenge.algorithms.model.RequestString;
+import com.challenge.algorithms.model.RequestTicTacToe;
 import com.challenge.algorithms.service.IChallenges;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,5 +51,22 @@ public class ChallengesController {
     public ResponseEntity<?> balancedParentheses(@RequestBody RequestString requestString){
         log.info("Input String: {}", requestString.getInputString());
         return ResponseEntity.ok(challenges.balancedParentheses(requestString));
+    }
+
+    /**
+     * Challenge name: Find Winner on a Tic Tac Toe Game
+     * Description: Tic-tac-toe is played by two players A and B on a 3 x 3 grid.
+     * In this Tic-Tac-Toe challenge, you are given a 3 x 3 grid representing the game board. Two players, A and B, take turns placing their respective characters ('X' and 'O') into empty squares of the grid.
+     * The game continues until there are three of the same characters in a row, column, or diagonal, resulting in a win for the player with the matching characters.
+     * If all squares are filled without any player achieving a winning combination, the game ends in a draw.
+     * Additionally, if there are still empty squares on the grid and no winner has been determined, the game is considered to be ongoing (pending).
+     * You can assume that 'moves' array is valid (i.e., it follows the rules of Tic-Tac-Toe), the grid is initially empty, and A will play first.
+     * @param moves
+     * @return
+     */
+    @RequestMapping("/tic-tac-toe")
+    public ResponseEntity<?> ticTacToeGame(@RequestBody RequestTicTacToe moves){
+        log.info("Input Moves: {}", moves.toString());
+        return ResponseEntity.ok(challenges.ticTacToeChallenge(moves));
     }
 }

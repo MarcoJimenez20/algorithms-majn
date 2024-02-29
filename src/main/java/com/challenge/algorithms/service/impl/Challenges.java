@@ -1,14 +1,17 @@
 package com.challenge.algorithms.service.impl;
 
 import com.challenge.algorithms.model.RequestString;
+import com.challenge.algorithms.model.RequestTicTacToe;
 import com.challenge.algorithms.model.ResponseAlgorithms;
 import com.challenge.algorithms.service.IChallenges;
+import com.challenge.algorithms.utils.Constansts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Service
 public class Challenges implements IChallenges{
@@ -74,6 +77,40 @@ public class Challenges implements IChallenges{
         return responseBalancedParentheses;
     }
 
+    /**
+     * Challenge name: Find Winner on a Tic Tac Toe Game
+     * Description: Tic-tac-toe is played by two players A and B on a 3 x 3 grid.
+     * In this Tic-Tac-Toe challenge, you are given a 3 x 3 grid representing the game board.
+     * Two players, A and B, take turns placing their respective characters ('X' and 'O') into empty squares of the grid.
+     * Constraints:
+     *      1 <= moves.length <= 9
+     *      moves[i].length == 2
+     *      0 <= row[i], col[i] <= 2
+     *      There are no repeated elements on 'moves'.
+     *      'moves' follow the rules of tic-tac-toe.
+     * Your task is to implement a function/method that takes the 3 x 3 array as input and returns the winner of the game (A or B)
+     * if there is one, or "Draw" if the game ends in a draw, or "Pending" if the game is still ongoing.
+     * Your implementation should also include the necessary unit test cases to verify the correctness of your solution.
+     * @param moves
+     * @return
+     */
+
+    @Override
+    public ResponseAlgorithms ticTacToeChallenge(RequestTicTacToe moves) {
+        ResponseAlgorithms ticTacToeResponse = new ResponseAlgorithms();
+        ticTacToeResponse.setName("Tic Tac Toe Game");
+
+        Boolean valid = validateMoves(moves);
+        log.info("Validation result: {}", valid.toString());
+
+        Map<String, String> answer = new HashMap<>();
+        answer.put("output", gameLogic(moves));
+        answer.put("input", "moves = "+Arrays.deepToString(moves.getMoves()));
+        ticTacToeResponse.setAnswer(answer);
+
+        return ticTacToeResponse;
+    }
+
     public Boolean balancedString(RequestString optionalInput){
         int bandera = 0;
         if (Objects.isNull(optionalInput.getInputString())
@@ -93,5 +130,67 @@ public class Challenges implements IChallenges{
         }
 
         return bandera == 0;
+    }
+    public Boolean validateMoves(RequestTicTacToe moves){
+        Set<String> uniqueMoves = new HashSet<>();
+        if (Objects.isNull(moves)
+                || Objects.isNull(moves.getMoves())
+                || Arrays.stream(moves.getMoves()).anyMatch(move -> move == null)
+                || moves.getMoves().length == 0
+                || moves.getMoves().length < 1
+                || moves.getMoves().length > 9
+                || Arrays.stream(moves.getMoves()).anyMatch(move -> move.length != 2)
+                || !Arrays.stream(moves.getMoves()).map(Arrays::toString).allMatch(uniqueMoves::add)) {
+            return false;
+        }
+        return true;
+    }
+
+    public String gameLogic(RequestTicTacToe moves){
+        int[][] playersMoves = moves.getMoves();
+        int[][] playerA = IntStream.range(0, playersMoves.length).filter(i -> i % 2 == 0)
+                .mapToObj(i -> playersMoves[i]).toArray(int[][]::new);
+
+        log.info("Moves from player A: ");
+        Arrays.stream(playerA).forEach(move->log.info(Arrays.toString(move)));
+
+        int[][] playerB = IntStream.range(0, playersMoves.length).filter(i -> i % 2 != 0)
+                .mapToObj(i -> playersMoves[i]).toArray(int[][]::new);
+
+        log.info("Moves from player B: ");
+        Arrays.stream(playerB).forEach(move->log.info(Arrays.toString(move)));
+
+        String[] movesPlayerA = playersMoves(playerA);
+        String[] movesPlayerB = playersMoves(playerB);
+        Set<String> setPlayerA = new HashSet<>(Arrays.asList(movesPlayerA));
+        Set<String> setPlayerB = new HashSet<>(Arrays.asList(movesPlayerB));
+
+        Boolean resultA = Constansts.winingCombinationsList.stream()
+                .anyMatch(arr -> new HashSet<>(Arrays.asList(arr)).equals(setPlayerA));
+        Boolean resultB = Constansts.winingCombinationsList.stream()
+                .anyMatch(arr -> new HashSet<>(Arrays.asList(arr)).equals(setPlayerB));
+
+        log.info("A result: {}",resultA);
+        log.info("B result: {}", resultB);
+
+        return getGameResult(resultA,resultB);
+    }
+    public String getGameResult(Boolean playerA, Boolean playerB){
+        if(!playerA && !playerB){
+            return "Draw";
+        }
+        if(playerA){
+            return "A";
+        }else if(playerB){
+            return "B";
+        }
+        return "wrong input";
+    }
+
+    public String[] playersMoves(int[][] playerMoves){
+        return  Arrays.stream(playerMoves).map(move -> Arrays.stream(move)
+                        .mapToObj(String::valueOf)
+                        .collect(Collectors.joining()))
+                .toArray(String[]::new);
     }
 }
