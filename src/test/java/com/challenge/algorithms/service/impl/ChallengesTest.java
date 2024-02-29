@@ -1,6 +1,7 @@
 package com.challenge.algorithms.service.impl;
 
 import com.challenge.algorithms.model.RequestString;
+import com.challenge.algorithms.model.RequestTicTacToe;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -50,5 +51,33 @@ class ChallengesTest {
         RequestString requestString = new RequestString();
         requestString.setInputString("())(()");
         assertNotNull(challenges.balancedParentheses(requestString));
+    }
+    @Test
+    void ticTacToeDrawTest(){
+        RequestTicTacToe requestMock = new RequestTicTacToe();
+        int[][] moves = {{0,0},{0,1},{1,0}};
+        requestMock.setMoves(moves);
+        assertNotNull(challenges.ticTacToeChallenge(requestMock));
+    }
+    @Test
+    void ticTacToeInvalidTest(){
+        RequestTicTacToe requestMock = new RequestTicTacToe();
+        int[][] moves = {};
+        requestMock.setMoves(moves);
+        assertNotNull(challenges.ticTacToeChallenge(requestMock));
+    }
+    @Test
+    void ticTacToePlayerAWinsTest(){
+        RequestTicTacToe requestMock = new RequestTicTacToe();
+        int[][] moves = {{0,0},{2,0},{1,2},{2,1},{2,2}};
+        requestMock.setMoves(moves);
+        assertNotNull(challenges.ticTacToeChallenge(requestMock));
+    }
+    @Test
+    void ticTacToePlayerBWinsTest(){
+        RequestTicTacToe requestMock = new RequestTicTacToe();
+        int[][] moves = {{0,0},{1,1},{0,1},{0,2},{1,0},{2,0}};
+        requestMock.setMoves(moves);
+        assertNotNull(challenges.ticTacToeChallenge(requestMock));
     }
 }
