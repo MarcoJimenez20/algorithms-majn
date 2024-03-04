@@ -245,9 +245,7 @@ public class Challenges implements IChallenges{
         }
         triangle[0] = new int[]{1};
 
-        return Arrays.stream(triangle)
-                .filter(arr -> IntStream.of(arr).anyMatch(num -> num != 0))
-                .toArray(int[][]::new);
+        return triangle;
     }
     public String formarttingOutput(int[][] array){
 

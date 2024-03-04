@@ -80,4 +80,9 @@ class ChallengesTest {
         requestMock.setMoves(moves);
         assertNotNull(challenges.ticTacToeChallenge(requestMock));
     }
+    @Test
+    void pascalsTriangleTest(){
+        int rows = 5;
+        assertNotNull(challenges.pascalsTriangle(rows));
+    }
 }

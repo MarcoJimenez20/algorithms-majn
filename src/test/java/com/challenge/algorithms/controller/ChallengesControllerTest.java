@@ -60,4 +60,10 @@ class ChallengesControllerTest {
         Mockito.when(challenges.ticTacToeChallenge(requestMock)).thenReturn(new ResponseAlgorithms());
         assertNotNull(challengesController.ticTacToeGame(requestMock));
     }
+    @Test
+    void pascalsTriangleTest(){
+        int rows = 4;
+        Mockito.when(challenges.pascalsTriangle(rows)).thenReturn(new ResponseAlgorithms());
+        assertNotNull(challengesController.pascalsTriangle(rows));
+    }
 }
