@@ -50,3 +50,9 @@ port: 8080
    'moves' follow the rules of tic tac toe.
    Your task is to implement a function/method that takes the 3 x 3 array as input and returns the winner of the game (A or B) if there is one, or "Draw" if the game ends in a draw, or "Pending" if the game is still ongoing.
    Your implementation should also include the necessary unit test cases to verify the correctness of your solution.
+   
+4.- Challenge name: Pascal’s Triangle
+    endpoint: /pascals-triangle/{rows}
+    rows = row calculation for pascal's triangle 
+    Description: Given numRows, generate the first numRows of Pascal’s triangle. For example, given numRows = 5, the result should be:
+    [[1], [1, 1], [1, 2, 1], [1, 3, 3, 1], [1, 4, 6, 4, 1]]
