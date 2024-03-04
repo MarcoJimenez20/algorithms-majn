@@ -11,4 +11,6 @@ public interface IChallenges {
     ResponseAlgorithms balancedParentheses(RequestString input);
 
     ResponseAlgorithms ticTacToeChallenge(RequestTicTacToe moves);
+
+    ResponseAlgorithms pascalsTriangle(int rows);
 }

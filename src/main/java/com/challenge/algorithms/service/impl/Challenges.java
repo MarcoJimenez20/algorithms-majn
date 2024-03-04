@@ -111,6 +111,31 @@ public class Challenges implements IChallenges{
         return ticTacToeResponse;
     }
 
+    /**
+     * * Challenge name: Pascal’s Triangle
+     * Description: Given numRows, generate the first numRows of Pascal’s triangle. For example, given numRows = 5, the result should be:
+     * input: 3
+     * output: [
+     * [1],
+     * [1,1]
+     * [1,2,1]
+     * ]
+     * @param rows
+     * @return
+     */
+    @Override
+    public ResponseAlgorithms pascalsTriangle(int rows) {
+        ResponseAlgorithms pascalResponse = new ResponseAlgorithms();
+        pascalResponse.setName("Pascal's Triangle");
+        int[][] pascalArray = pascalsTriangleFormation(rows);
+        String output = formarttingOutput(pascalArray);
+        Map<String, String> answer = new HashMap<>();
+        answer.put("output", output);
+        answer.put("input", "nRows= " + String.valueOf(rows));
+        pascalResponse.setAnswer(answer);
+        return pascalResponse;
+    }
+
     public Boolean balancedString(RequestString optionalInput){
         int bandera = 0;
         if (Objects.isNull(optionalInput.getInputString())
@@ -192,5 +217,47 @@ public class Challenges implements IChallenges{
                         .mapToObj(String::valueOf)
                         .collect(Collectors.joining()))
                 .toArray(String[]::new);
+    }
+    public int[][] pascalsTriangleFormation(int rows){
+
+        int[] lastArray = new int[rows];
+        int[][] triangle = new int[rows][1];
+
+        for(int i = 0; i < rows; i++){
+            int[] internArray = new int[rows];
+            if (i != 0) {
+                lastArray = triangle[i-1]; //guardamos la ultima fila formada en el triangulo
+            }
+            for (int j = 0; j <= i; j++) {
+
+                if(i == 1){ //validamos si
+                    internArray[j] = 1;
+                } else if(i > 1){
+                    if(j == 0 || j == (rows-1)){
+                        internArray[j] = 1;
+                    }else {
+                        internArray[j] = lastArray[j] + lastArray[j - 1];
+                    }
+                }
+
+            }
+            triangle[i] = internArray;
+        }
+        triangle[0] = new int[]{1};
+
+        return Arrays.stream(triangle)
+                .filter(arr -> IntStream.of(arr).anyMatch(num -> num != 0))
+                .toArray(int[][]::new);
+    }
+    public String formarttingOutput(int[][] array){
+
+        return "[" +
+                Arrays.stream(array)
+                        .map(row -> "[" + Arrays.stream(row)
+                                .filter(num -> num != 0)
+                                .mapToObj(String::valueOf)
+                                .collect(Collectors.joining(", ")) + "]")
+                        .collect(Collectors.joining(", ")) +
+                "]";
     }
 }

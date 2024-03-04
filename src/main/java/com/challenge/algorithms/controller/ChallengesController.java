@@ -69,4 +69,22 @@ public class ChallengesController {
         log.info("Input Moves: {}", moves.toString());
         return ResponseEntity.ok(challenges.ticTacToeChallenge(moves));
     }
+
+    /**
+     * Challenge name: Pascal’s Triangle
+     * Description: Given numRows, generate the first numRows of Pascal’s triangle. For example, given numRows = 5, the result should be:
+     * input: 3
+     * output: [
+     *  [1],
+     *  [1,1]
+     *  [1,2,1]
+     * ]
+     * @param rows
+     * @return
+     */
+    @RequestMapping("/pascals-triangle/{rows}")
+    public ResponseEntity<?> pascalsTriangle(@PathVariable int rows){
+        log.info("Input Moves: {}", String.valueOf(rows));
+        return ResponseEntity.ok(challenges.pascalsTriangle(rows));
+    }
 }
