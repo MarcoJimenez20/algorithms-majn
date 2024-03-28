@@ -1,6 +1,7 @@
 package com.challenge.algorithms.controller;
 
 import com.challenge.algorithms.model.RequestString;
+import com.challenge.algorithms.model.RequestTicTacToe;
 import com.challenge.algorithms.model.ResponseAlgorithms;
 import com.challenge.algorithms.service.IChallenges;
 import org.junit.jupiter.api.BeforeEach;
@@ -50,5 +51,19 @@ class ChallengesControllerTest {
         requestMock.setInputString("a(");
         Mockito.when(challenges.balancedParentheses(requestMock)).thenReturn(new ResponseAlgorithms());
         assertNotNull(challengesController.balancedParentheses(requestMock));
+    }
+    @Test
+    void ticTacToeTest(){
+        RequestTicTacToe requestMock = new RequestTicTacToe();
+        int[][] moves = {{0,0},{0,1},{1,0}};
+        requestMock.setMoves(moves);
+        Mockito.when(challenges.ticTacToeChallenge(requestMock)).thenReturn(new ResponseAlgorithms());
+        assertNotNull(challengesController.ticTacToeGame(requestMock));
+    }
+    @Test
+    void pascalsTriangleTest(){
+        int rows = 4;
+        Mockito.when(challenges.pascalsTriangle(rows)).thenReturn(new ResponseAlgorithms());
+        assertNotNull(challengesController.pascalsTriangle(rows));
     }
 }
