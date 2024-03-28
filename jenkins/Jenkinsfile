@@ -3,16 +3,12 @@ pipeline {
     stages {
         stage("Build"){
             steps{
-                dir("algorithms-majn"){
                     sh "mvn clean install"
-                }
             }
         }
         stage("Test"){
             steps{
-                dir("algorithms-majn"){
                     sh "mvn test"
-                }
             }
         }
     }
